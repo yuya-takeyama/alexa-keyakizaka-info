@@ -3,11 +3,11 @@
 const moment = require('moment-timezone');
 const fetchSchedules = require('../build/fetcher').fetchSchedules;
 
-const args = process.argv[2] ?
-  [moment.tz(process.argv[2], 'Asia/Tokyo')] :
-  [];
+const date = process.argv[2] ?
+  moment.tz(process.argv[2], 'Asia/Tokyo') :
+  moment.tz('Asia/Tokyo');
 
-fetchSchedules(...args)
+fetchSchedules(date)
   .then((schedules) => {
     console.log(schedules);
   }).catch((err) => {
