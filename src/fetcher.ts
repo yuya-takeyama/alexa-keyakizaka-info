@@ -12,13 +12,27 @@ const toURL = (path: string): string => {
 
 export interface Schedule {
   title?: string;
-  time?: string;
+  time: ScheduleTime;
   genre?: string;
   description?: string;
 }
 
+export interface ScheduleTime {
+  from?: string;
+  to?: string;
+}
+
 const normalize = (str: string | undefined | null): string | undefined => {
   return str ? trim(striptags(str)) || undefined : undefined;
+};
+
+export const parseTime = (time?: string): ScheduleTime => {
+  if (time) {
+    const [from, to] = time.split('〜');
+    return { from: normalize(from), to: normalize(to) };
+  } else {
+    return { from: undefined, to: undefined };
+  }
 };
 
 const parseScheduleElement = (element: Element): Schedule | undefined => {
@@ -34,11 +48,12 @@ const parseScheduleElement = (element: Element): Schedule | undefined => {
     ).split(/\n/);
     const title = first(titleDescriptions);
     const description = normalize(tail(titleDescriptions).join('\n'));
+    const time = parseTime(timeElement ? normalize(timeElement.innerHTML) : undefined);
 
     return {
       title,
       genre: genreElement ? normalize(genreElement.innerHTML) : undefined,
-      time: timeElement ? normalize(timeElement.innerHTML) : undefined,
+      time,
       description,
     };
   } else {

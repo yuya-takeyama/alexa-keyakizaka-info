@@ -13,7 +13,10 @@ describe('#formatSchedules', () => {
       const schedules: Schedule[] = [{
         title: '歌番組に出演',
         genre: 'テレビ',
-        time: '19:00〜20:00',
+        time: {
+          from: '19:00',
+          to: '20:00',
+        },
         description: undefined,
       }];
       expect(formatSchedules(schedules)).toMatchSnapshot();
@@ -26,19 +29,25 @@ describe('#formatSchedules', () => {
         {
           title: '歌番組に出演',
           genre: 'テレビ',
-          time: '19:00〜20:00',
+          time: {
+            from: '19:00',
+            to: '20:00',
+          },
           description: undefined,
         },
         {
           title: '平手友梨奈の誕生日',
           genre: '誕生日',
-          time: undefined,
+          time: {},
           description: '平手友梨奈の誕生日です。',
         },
         {
           title: '欅坂46 こちら有楽町星空放送局',
           genre: 'ラジオ',
-          time: '24:20〜24:40',
+          time: {
+            from: '24:20',
+            to: '24:40',
+          },
           description: undefined,
         },
       ];
