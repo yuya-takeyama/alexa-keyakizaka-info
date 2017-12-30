@@ -23,6 +23,7 @@
     "@types/jest": "^22.0.0",
     "@types/jsdom": "^11.0.4",
     "@types/lodash": "^4.14.91",
+    "@types/moment-timezone": "^0.5.3",
     "@types/node": "^8.5.2",
     "jest": "^22.0.4",
     "prettier": "^1.9.2",
@@ -38,6 +39,7 @@
     "jsdom": "^11.5.1",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
     "striptags": "^3.1.1"
   },
   "jest": {

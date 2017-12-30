@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 const fetchSchedules = require('../build/fetcher').fetchSchedules;
 
 const args = process.argv[2] ?
-  [moment.utc(process.argv[2])] :
+  [moment.tz(process.argv[2], 'Asia/Tokyo')] :
   [];
 
 fetchSchedules(...args)
