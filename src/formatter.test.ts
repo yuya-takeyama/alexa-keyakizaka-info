@@ -1,0 +1,48 @@
+import { Schedule } from './fetcher';
+import { formatSchedules } from './formatter';
+
+describe('#formatSchedules', () => {
+  describe('with no schedules', () => {
+    it('returns a schedule script correctly', () => {
+      expect(formatSchedules([])).toMatchSnapshot();
+    });
+  });
+
+  describe('with a single schedule', () => {
+    it('returns a schedule script correctly', () => {
+      const schedules: Schedule[] = [{
+        title: '歌番組に出演',
+        genre: 'テレビ',
+        time: '19:00〜20:00',
+        description: undefined,
+      }];
+      expect(formatSchedules(schedules)).toMatchSnapshot();
+    });
+  });
+
+  describe('with multiple schedules', () => {
+    it('returns a schedule script correctly', () => {
+      const schedules: Schedule[] = [
+        {
+          title: '歌番組に出演',
+          genre: 'テレビ',
+          time: '19:00〜20:00',
+          description: undefined,
+        },
+        {
+          title: '平手友梨奈の誕生日',
+          genre: '誕生日',
+          time: undefined,
+          description: '平手友梨奈の誕生日です。',
+        },
+        {
+          title: '欅坂46 こちら有楽町星空放送局',
+          genre: 'ラジオ',
+          time: '24:20〜24:40',
+          description: undefined,
+        },
+      ];
+      expect(formatSchedules(schedules)).toMatchSnapshot();
+    });
+  });
+});

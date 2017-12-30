@@ -1,0 +1,63 @@
+{
+  "name": "alexa-skill-keyakizaka46",
+  "version": "0.1.0",
+  "description": "Alexa Skill Keyakizaka46",
+  "main": "index.js",
+  "author": "Yuya Takeyama <sign.of.the.wolf.pentagram@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn clean && yarn build:ts && yarn build:lambda",
+    "build:ts": "tsc",
+    "build:lambda": "./scripts/build_lambda",
+    "clean": "rimraf ./build",
+    "start": "tsc -w",
+    "lint": "tslint --project tsconfig.json",
+    "lint:fix": "yarn lint --fix",
+    "pretty": "prettier --write 'src/**/*.ts'",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/alexa-sdk": "^1.0.11",
+    "@types/es6-promise": "^0.0.33",
+    "@types/jest": "^22.0.0",
+    "@types/jsdom": "^11.0.4",
+    "@types/lodash": "^4.14.91",
+    "@types/node": "^8.5.2",
+    "jest": "^22.0.4",
+    "prettier": "^1.9.2",
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.0.0",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "alexa-sdk": "^1.0.24",
+    "axios": "^0.17.1",
+    "jsdom": "^11.5.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
+    "striptags": "^3.1.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(\\.|/)(test|spec)\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.spec.ts",
+      "!src/**/*.d.ts"
+    ],
+    "mapCoverage": true
+  }
+}

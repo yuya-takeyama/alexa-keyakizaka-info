@@ -1,0 +1,4 @@
+cd build && \
+  cp ../package.json ../yarn.lock . && \
+  yarn --prod && \
+  zip -r lambda.zip *.js node_modules

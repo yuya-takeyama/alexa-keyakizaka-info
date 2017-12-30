@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#formatSchedules with a single schedule returns a schedule script correctly 1`] = `
+"今日のスケジュールは1件です。
+19:00〜20:00 テレビ 歌番組に出演
+"
+`;
+
+exports[`#formatSchedules with multiple schedules returns a schedule script correctly 1`] = `
+"今日のスケジュールは3件です。
+19:00〜20:00 テレビ 歌番組に出演
+誕生日 平手友梨奈の誕生日
+24:20〜24:40 ラジオ 欅坂46 こちら有楽町星空放送局
+"
+`;
+
+exports[`#formatSchedules with no schedules returns a schedule script correctly 1`] = `
+"今日のスケジュールは0件です。
+"
+`;

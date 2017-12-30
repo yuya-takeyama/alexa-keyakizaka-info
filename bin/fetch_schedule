@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const moment = require('moment');
+const fetchSchedules = require('../build/fetcher').fetchSchedules;
+
+const args = process.argv[2] ?
+  [moment.utc(process.argv[2])] :
+  [];
+
+fetchSchedules(...args)
+  .then((schedules) => {
+    console.log(schedules);
+  }).catch((err) => {
+    console.error(`Failed to fetch schedules: ${err.message}`);
+    process.exit(1);
+  });
