@@ -31,6 +31,9 @@ export const handler = (
   event: Alexa.RequestBody<any>,
   context: Alexa.Context,
 ) => {
+  console.info(`event: ${JSON.stringify(event)}`);
+  console.info(`context: ${JSON.stringify(context)}`);
+
   const alexa = Alexa.handler(event, context);
 
   alexa.registerHandlers(handlers);
