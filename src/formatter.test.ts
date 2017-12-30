@@ -1,10 +1,13 @@
+import * as moment from 'moment-timezone';
 import { Schedule } from './fetcher';
 import { formatSchedules } from './formatter';
 
 describe('#formatSchedules', () => {
+  const date = moment.tz('2017-12-31', 'Asia/Tokyo');
+
   describe('with no schedules', () => {
     it('returns a schedule script correctly', () => {
-      expect(formatSchedules([])).toMatchSnapshot();
+      expect(formatSchedules([], date)).toMatchSnapshot();
     });
   });
 
@@ -19,7 +22,7 @@ describe('#formatSchedules', () => {
         },
         description: undefined,
       }];
-      expect(formatSchedules(schedules)).toMatchSnapshot();
+      expect(formatSchedules(schedules, date)).toMatchSnapshot();
     });
   });
 
@@ -51,7 +54,7 @@ describe('#formatSchedules', () => {
           description: undefined,
         },
       ];
-      expect(formatSchedules(schedules)).toMatchSnapshot();
+      expect(formatSchedules(schedules, date)).toMatchSnapshot();
     });
   });
 });

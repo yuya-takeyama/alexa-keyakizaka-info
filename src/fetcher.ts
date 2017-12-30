@@ -61,10 +61,8 @@ const parseScheduleElement = (element: Element): Schedule | undefined => {
   }
 };
 
-const today = (): moment.Moment => moment.tz('Asia/Tokyo');
-
 export const fetchSchedules = async (
-  date: moment.Moment = today(),
+  date: moment.Moment,
 ): Promise<Schedule[]> => {
   return new Promise<Schedule[]>(async (resolve, reject) => {
     try {

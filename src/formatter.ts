@@ -1,3 +1,4 @@
+import { Moment } from "moment-timezone";
 import { Schedule, ScheduleTime } from "./fetcher";
 
 const formatTime = (time: ScheduleTime): string | undefined => {
@@ -15,9 +16,9 @@ const formatSchedule = (schedule: Schedule): string => {
     .join(' ');
 };
 
-export const formatSchedules = (schedules: Schedule[]): string => {
+export const formatSchedules = (schedules: Schedule[], date: Moment): string => {
   const script = schedules.reduce((prev, schedule) => {
     return prev + formatSchedule(schedule) + '\n';
   }, '');
-  return `今日のスケジュールは${schedules.length}件です。\n${script}`;
+  return `${date.format('YYYY/MM/DD')}のスケジュールは${schedules.length}件です。\n${script}`;
 }
