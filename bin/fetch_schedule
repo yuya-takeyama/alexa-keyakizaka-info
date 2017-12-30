@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const moment = require('moment-timezone');
+const moment = require('moment');
 const fetchSchedules = require('../build/fetcher').fetchSchedules;
 
 const date = process.argv[2] ?
-  moment.tz(process.argv[2], 'Asia/Tokyo') :
-  moment.tz('Asia/Tokyo');
+  moment(process.argv[2]) :
+  moment();
 
 fetchSchedules(date)
   .then((schedules) => {

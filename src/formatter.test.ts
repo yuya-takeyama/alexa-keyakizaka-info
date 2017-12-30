@@ -1,9 +1,9 @@
-import * as moment from 'moment-timezone';
+import * as moment from 'moment';
 import { Schedule } from './fetcher';
 import { formatSchedules } from './formatter';
 
 describe('#formatSchedules', () => {
-  const date = moment.tz('2017-12-31', 'Asia/Tokyo');
+  const date = moment('2017-12-31');
 
   describe('with no schedules', () => {
     it('returns a schedule script correctly', () => {
