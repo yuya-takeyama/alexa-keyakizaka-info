@@ -9,7 +9,7 @@ const handlers: Alexa.Handlers<any> = {
   },
   async GetSchedules() {
     const slots = this.event.request.intent.slots;
-    const date = slots.Date ? moment.tz(slots.Date.value, 'Asia/Tokyo') : moment.tz('Asia/Tokyo');
+    const date = moment.tz(slots.Date.value, 'Asia/Tokyo');
     try {
       const schedules = await fetchSchedules(date);
       const script = formatSchedules(schedules, date);
