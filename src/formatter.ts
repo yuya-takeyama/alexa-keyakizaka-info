@@ -1,4 +1,4 @@
-import { Moment } from "moment-timezone";
+import { Moment } from "moment";
 import { Schedule, ScheduleTime } from "./fetcher";
 
 const formatTime = (time: ScheduleTime): string | undefined => {

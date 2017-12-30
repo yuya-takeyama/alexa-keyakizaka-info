@@ -1,5 +1,5 @@
 import * as Alexa from 'alexa-sdk';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment';
 import { fetchSchedules } from './fetcher';
 import { formatSchedules } from './formatter';
 
@@ -9,7 +9,7 @@ const handlers: Alexa.Handlers<any> = {
   },
   async GetSchedules() {
     const slots = this.event.request.intent.slots;
-    const date = moment.tz(slots.Date.value, 'Asia/Tokyo');
+    const date = moment(slots.Date.value);
     try {
       const schedules = await fetchSchedules(date);
       const script = formatSchedules(schedules, date);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
 import { first, map, tail, trim } from 'lodash';
-import * as moment from 'moment-timezone';
+import { Moment } from 'moment';
 import * as striptags from 'striptags';
 
 const BASE_URL = 'http://www.keyakizaka46.com';
@@ -62,7 +62,7 @@ const parseScheduleElement = (element: Element): Schedule | undefined => {
 };
 
 export const fetchSchedules = async (
-  date: moment.Moment,
+  date: Moment,
 ): Promise<Schedule[]> => {
   return new Promise<Schedule[]>(async (resolve, reject) => {
     try {
