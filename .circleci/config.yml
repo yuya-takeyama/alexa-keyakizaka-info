@@ -92,7 +92,7 @@ jobs:
       - checkout
       - run:
           name: Install aws command
-          working_directory: /
+          working_directory: /tmp
           command: |
             sudo apt-get -y -qq update
             sudo apt-get -y -qq install python3.4-dev
