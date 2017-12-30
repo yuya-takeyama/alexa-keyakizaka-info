@@ -28,7 +28,7 @@ const normalize = (str: string | undefined | null): string | undefined => {
 
 export const parseTime = (time?: string): ScheduleTime => {
   if (time) {
-    const [from, to] = time.split('〜');
+    const [from, to] = time.split('～');
     return { from: normalize(from), to: normalize(to) };
   } else {
     return { from: undefined, to: undefined };
