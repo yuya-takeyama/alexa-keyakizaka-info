@@ -1,0 +1,20 @@
+#!/bin/bash
+FULL_FUNCTION_NAME=${FUNCTION_NAME}-${LAMBDA_ENV}
+
+aws lambda get-function --function-name ${FULL_FUNCTION_NAME} --region ${AWS_REGION} && :
+
+if [ "$?" != "0" ]; then
+  aws lambda create-function \
+    --function-name ${FULL_FUNCTION_NAME} \
+    --runtime nodejs6.10 \
+    --handler index.handler \
+    --zip-file fileb://./build/lambda.zip \
+    --role ${IAM_ROLE} \
+    --region ${AWS_REGION} \
+    --timeout 10
+fi
+
+aws lambda update-function-code \
+  --function-name ${FULL_FUNCTION_NAME} \
+  --zip-file fileb://./build/lambda.zip \
+  --region ${AWS_REGION}

@@ -1,0 +1,138 @@
+version: 2
+jobs:
+  bundle_dependencies:
+    working_directory: ~/keyakizaka-info
+    docker:
+      - image: circleci/node:6.10.3
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - keyakizaka-info-{{ arch }}-{{ checksum "yarn.lock" }}
+            - keyakizaka-info-{{ arch }}
+      - run:
+          name: System information
+          command: |
+            echo "Node $(node -v)"
+            echo "npm $(node -v)"
+            echo "yarn $(yarn -version)"
+      - run:
+          name: Install dependencies
+          command: 'yarn install'
+      - save_cache:
+          key: keyakizaka-info-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/keyakizaka-info/node_modules
+            - ~/.cache/yarn
+
+  test:
+    working_directory: ~/keyakizaka-info
+    docker:
+      - image: circleci/node:6.10.3
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - keyakizaka-info-{{ arch }}-{{ checksum "yarn.lock" }}
+            - keyakizaka-info-{{ arch }}
+      - run:
+          name: Install dependencies
+          command: 'yarn install'
+      - run:
+          name: Lint
+          command: 'yarn lint'
+      - run:
+          name: Build
+          command: 'yarn build:ts'
+      - run:
+          name: Test
+          command: 'yarn test'
+
+  deploy_staging:
+    working_directory: ~/keyakizaka-info
+    environment:
+      - LAMBDA_ENV: 'staging'
+    docker:
+      - image: circleci/node:6.10.3
+    steps:
+      - checkout
+      - run:
+          name: Install aws command
+          working_directory: /tmp
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get -y -qq install python3.4-dev
+            curl -O https://bootstrap.pypa.io/get-pip.py
+            sudo python3.4 get-pip.py
+            sudo pip install awscli --upgrade
+      - restore_cache:
+          keys:
+            - keyakizaka-info-{{ arch }}-{{ checksum "yarn.lock" }}
+            - keyakizaka-info-{{ arch }}
+      - restore_cache:
+          keys:
+            - keyakizaka-info-deploy-{{ arch }}-{{ checksum "yarn.lock" }}
+            - keyakizaka-info-deploy-{{ arch }}
+      - run:
+          name: Deploy to AWS Lambda Staging
+          command: 'yarn deploy'
+      - save_cache:
+          key: keyakizaka-info-deploy-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/keyakizaka-info/build/node_modules
+            - ~/.cache/yarn
+
+  deploy_production:
+    working_directory: ~/keyakizaka-info
+    environment:
+      - LAMBDA_ENV: 'production'
+    docker:
+      - image: circleci/node:6.10.3
+    steps:
+      - checkout
+      - run:
+          name: Install aws command
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get -y -qq install python3.4-dev
+            curl -O https://bootstrap.pypa.io/get-pip.py
+            sudo python3.4 get-pip.py
+            sudo pip install awscli --upgrade
+      - restore_cache:
+          keys:
+            - keyakizaka-info-{{ arch }}-{{ checksum "yarn.lock" }}
+            - keyakizaka-info-{{ arch }}
+      - restore_cache:
+          keys:
+            - keyakizaka-info-deploy-{{ arch }}-{{ checksum "yarn.lock" }}
+            - keyakizaka-info-deploy-{{ arch }}
+      - run:
+          name: Deploy to AWS Lambda Production
+          command: 'yarn deploy'
+      - save_cache:
+          key: keyakizaka-info-deploy-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/keyakizaka-info/build/node_modules
+            - ~/.cache/yarn
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - bundle_dependencies
+      - test:
+          requires:
+            - bundle_dependencies
+      - deploy_staging:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: master
+      - deploy_production:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
