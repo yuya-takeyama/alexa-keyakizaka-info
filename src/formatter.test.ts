@@ -1,7 +1,7 @@
 import * as moment from 'moment';
-import { Schedule, Birthday } from './fetcher';
-import { formatSchedules, formatBirthdays } from './formatter';
-import { BirthdayMonth, BirthdayDate } from './parseMonth';
+import { Birthday, Schedule } from './fetcher';
+import { formatBirthdays, formatSchedules } from './formatter';
+import { BirthdayDate, BirthdayMonth } from './parseMonth';
 
 describe('#formatSchedules', () => {
   const date = moment('2017-12-31');
