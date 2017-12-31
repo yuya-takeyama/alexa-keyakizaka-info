@@ -1,4 +1,4 @@
-import { parseTime } from './fetcher';
+import { parseTime, toValidJSON } from './fetcher';
 
 describe('#parseTime', () => {
   describe('when the time is undefined', () => {
@@ -23,5 +23,31 @@ describe('#parseTime', () => {
     it('returns to only', () => {
       expect(parseTime('～20:00')).toEqual({ from: undefined, to: '20:00' });
     });
+  });
+});
+
+describe('#toValidJSON', () => {
+  it('converts from JavaScript to JSON', () => {
+    const js = `
+[
+{
+    title: 'テレビ東京「木ドラ25」『Re:Mind』',
+    start: '2017-11-02',
+    className: 'media',
+    description:'テレビ東京「木ドラ25」『Re:Mind』'
+  },{
+    title: '「MEN\'S NON-NO」12月号',
+    start: '2017-11-10',
+    className: 'media',
+    description:'「MEN\'S NON-NO」12月号'
+  },{
+    title: '「FINEBOYS」12月号',
+    start: '2017-11-10',
+    className: 'media',
+    description:'「FINEBOYS」12月号'
+  }
+]
+    `;
+    expect(toValidJSON(js)).toMatchSnapshot();
   });
 });

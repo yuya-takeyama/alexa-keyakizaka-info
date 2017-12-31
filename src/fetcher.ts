@@ -142,10 +142,10 @@ const birthdaysFilter = (time: BirthdayParameter): BirthdaysFilter => {
   }
 };
 
-const toValidJSON = (js: string): string => {
+export const toValidJSON = (js: string): string => {
   return js
     .replace(/([a-zA-Z]+):/g, '"$1":')
-    .replace(/'([^']*)'/g, (_, p1) => `${JSON.stringify(p1)}`);
+    .replace(/'(.*)'(,?)/g, (_, p1, p2) => `${JSON.stringify(p1)}${p2}`);
 };
 
 const toBirthdays = (json: string, time: BirthdayParameter): Birthday[] => {
