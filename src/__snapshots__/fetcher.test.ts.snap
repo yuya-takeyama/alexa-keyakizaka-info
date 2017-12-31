@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#toValidJSON converts from JavaScript to JSON 1`] = `
+"
+[
+{
+    \\"title\\": \\"テレビ東京「木ドラ25」『\\\\\\"Re\\\\\\":Mind』\\",
+    \\"start\\": \\"2017-11-02\\",
+    \\"className\\": \\"media\\",
+    \\"description\\":\\"テレビ東京「木ドラ25」『\\\\\\"Re\\\\\\":Mind』\\"
+  },{
+    \\"title\\": \\"「MEN'S NON-NO」12月号\\",
+    \\"start\\": \\"2017-11-10\\",
+    \\"className\\": \\"media\\",
+    \\"description\\":\\"「MEN'S NON-NO」12月号\\"
+  },{
+    \\"title\\": \\"「FINEBOYS」12月号\\",
+    \\"start\\": \\"2017-11-10\\",
+    \\"className\\": \\"media\\",
+    \\"description\\":\\"「FINEBOYS」12月号\\"
+  }
+]
+    "
+`;

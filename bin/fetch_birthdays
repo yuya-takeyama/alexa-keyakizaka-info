@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const moment = require('moment');
+const parseMonth = require('../build/parseMonth').default;
+const fetchBirthdays = require('../build/fetcher').fetchBirthdays;
+
+const time = process.argv[2] ?
+  parseMonth(process.argv[2]) :
+  parseMonth(moment().format('YYYY-MM'));
+
+fetchBirthdays(time)
+  .then((schedules) => {
+    console.log(schedules);
+  }).catch((err) => {
+    console.error(`Failed to fetch schedules: ${err.message}`);
+    process.exit(1);
+  });

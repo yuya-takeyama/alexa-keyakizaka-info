@@ -1,6 +1,7 @@
 import * as moment from 'moment';
-import { Schedule } from './fetcher';
-import { formatSchedules } from './formatter';
+import { Birthday, Schedule } from './fetcher';
+import { formatBirthdays, formatSchedules } from './formatter';
+import { BirthdayDate, BirthdayMonth } from './parseMonth';
 
 describe('#formatSchedules', () => {
   const date = moment('2017-12-31');
@@ -13,15 +14,17 @@ describe('#formatSchedules', () => {
 
   describe('with a single schedule', () => {
     it('returns a schedule script correctly', () => {
-      const schedules: Schedule[] = [{
-        title: '歌番組に出演',
-        genre: 'テレビ',
-        time: {
-          from: '19:00',
-          to: '20:00',
+      const schedules: Schedule[] = [
+        {
+          title: '歌番組に出演',
+          genre: 'テレビ',
+          time: {
+            from: '19:00',
+            to: '20:00',
+          },
+          description: undefined,
         },
-        description: undefined,
-      }];
+      ];
       expect(formatSchedules(schedules, date)).toMatchSnapshot();
     });
   });
@@ -55,6 +58,93 @@ describe('#formatSchedules', () => {
         },
       ];
       expect(formatSchedules(schedules, date)).toMatchSnapshot();
+    });
+  });
+});
+
+describe('#formatBirthdays', () => {
+  describe('with BirthdayMonth', () => {
+    const time: BirthdayMonth = {
+      type: 'month',
+      year: 2017,
+      month: 11,
+    };
+
+    describe('with no schedules', () => {
+      it('returns a schedule script correctly', () => {
+        expect(formatBirthdays([], time)).toMatchSnapshot();
+      });
+    });
+
+    describe('with a single schedule', () => {
+      it('returns a schedule script correctly', () => {
+        const birthdays: Birthday[] = [
+          {
+            date: moment('2017-06-25'),
+            name: '平手友梨奈',
+          },
+        ];
+        expect(formatBirthdays(birthdays, time)).toMatchSnapshot();
+      });
+    });
+
+    describe('with multiple schedules', () => {
+      it('returns a schedule script correctly', () => {
+        const schedules: Birthday[] = [
+          {
+            date: moment('2017-06-04'),
+            name: '織田奈那',
+          },
+          {
+            date: moment('2017-06-25'),
+            name: '平手友梨奈',
+          },
+        ];
+        expect(formatBirthdays(schedules, time)).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('with BirthdayDate', () => {
+    const time: BirthdayDate = {
+      type: 'date',
+      year: 2017,
+      month: 6,
+      day: 25,
+    };
+
+    describe('with no schedules', () => {
+      it('returns a schedule script correctly', () => {
+        expect(formatBirthdays([], time)).toMatchSnapshot();
+      });
+    });
+
+    describe('with a single schedule', () => {
+      it('returns a schedule script correctly', () => {
+        const birthdays: Birthday[] = [
+          {
+            date: moment('2017-06-25'),
+            name: '平手友梨奈',
+          },
+        ];
+        expect(formatBirthdays(birthdays, time)).toMatchSnapshot();
+      });
+    });
+
+    describe('with multiple schedules', () => {
+      it('returns a schedule script correctly', () => {
+        const schedules: Birthday[] = [
+          {
+            date: moment('2017-06-25'),
+            name: '平手友梨奈',
+          },
+          {
+            date: moment('2017-06-25'),
+            name: '平手友梨奈2',
+          },
+        ];
+        expect(formatBirthdays(schedules, time)).toMatchSnapshot();
+      });
     });
   });
 });
