@@ -14,7 +14,7 @@ const handlers: Alexa.Handlers<any> = {
       const schedules = await fetchSchedules(date);
       const script = formatSchedules(schedules, date);
       this.response.speak(script);
-      console.info(script)
+      console.info(script);
     } catch (e) {
       this.response.speak('スケジュールの取得に失敗しました');
       console.error(`Failed to fetch schedules: ${e.message}`);

@@ -13,15 +13,17 @@ describe('#formatSchedules', () => {
 
   describe('with a single schedule', () => {
     it('returns a schedule script correctly', () => {
-      const schedules: Schedule[] = [{
-        title: '歌番組に出演',
-        genre: 'テレビ',
-        time: {
-          from: '19:00',
-          to: '20:00',
+      const schedules: Schedule[] = [
+        {
+          title: '歌番組に出演',
+          genre: 'テレビ',
+          time: {
+            from: '19:00',
+            to: '20:00',
+          },
+          description: undefined,
         },
-        description: undefined,
-      }];
+      ];
       expect(formatSchedules(schedules, date)).toMatchSnapshot();
     });
   });

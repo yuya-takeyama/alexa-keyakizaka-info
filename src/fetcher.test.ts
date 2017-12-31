@@ -1,4 +1,4 @@
-import { parseTime } from "./fetcher";
+import { parseTime } from './fetcher';
 
 describe('#parseTime', () => {
   describe('when the time is undefined', () => {
