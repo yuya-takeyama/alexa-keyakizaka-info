@@ -23,7 +23,7 @@ export const formatSchedules = (
   date: Moment,
 ): string => {
   const script = schedules.reduce((prev, schedule) => {
-    return prev + formatSchedule(schedule) + '\n';
+    return prev + formatSchedule(schedule) + '、\n';
   }, '');
   return `${date.format('YYYY/MM/DD')}のスケジュールは${
     schedules.length
@@ -44,9 +44,9 @@ export const formatBirthdays = (
 ) => {
   const script = birthdays.reduce((prev, birthday) => {
     if (time.type === 'month') {
-      return prev + `${birthday.date.format('DD日')}、${birthday.name}\n`;
+      return prev + `${birthday.date.format('DD日')}、${birthday.name}、\n`;
     } else {
-      return prev + `${birthday.name}\n`;
+      return prev + `${birthday.name}、\n`;
     }
   }, '');
   return `${formatBirthdayParameter(time)}が誕生日のメンバーは${birthdays.length}人です。\n` +
