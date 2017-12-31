@@ -96,7 +96,7 @@ interface JSONBirthday {
   description: string;
 }
 
-interface Birthday {
+export interface Birthday {
   date: moment.Moment;
   name: string;
 }

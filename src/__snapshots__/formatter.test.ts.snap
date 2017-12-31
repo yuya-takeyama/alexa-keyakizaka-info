@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`#formatBirthdays with BirthdayDate with a single schedule returns a schedule script correctly 1`] = `
+"6月25日が誕生日のメンバーは1人です。
+平手友梨奈
+"
+`;
+
+exports[`#formatBirthdays with BirthdayDate with multiple schedules returns a schedule script correctly 1`] = `
+"6月25日が誕生日のメンバーは2人です。
+平手友梨奈
+平手友梨奈2
+"
+`;
+
+exports[`#formatBirthdays with BirthdayDate with no schedules returns a schedule script correctly 1`] = `
+"6月25日が誕生日のメンバーは0人です。
+"
+`;
+
+exports[`#formatBirthdays with BirthdayMonth with a single schedule returns a schedule script correctly 1`] = `
+"11月が誕生日のメンバーは1人です。
+25日、平手友梨奈
+"
+`;
+
+exports[`#formatBirthdays with BirthdayMonth with multiple schedules returns a schedule script correctly 1`] = `
+"11月が誕生日のメンバーは2人です。
+04日、織田奈那
+25日、平手友梨奈
+"
+`;
+
+exports[`#formatBirthdays with BirthdayMonth with no schedules returns a schedule script correctly 1`] = `
+"11月が誕生日のメンバーは0人です。
+"
+`;
+
 exports[`#formatSchedules with a single schedule returns a schedule script correctly 1`] = `
 "2017/12/31のスケジュールは1件です。
 19:00から20:00まで テレビ 歌番組に出演

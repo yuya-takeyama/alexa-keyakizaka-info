@@ -1,7 +1,8 @@
 import * as Alexa from 'alexa-sdk';
 import * as moment from 'moment';
-import { fetchSchedules } from './fetcher';
-import { formatSchedules } from './formatter';
+import { fetchBirthdays, fetchSchedules } from './fetcher';
+import { formatBirthdays, formatSchedules } from './formatter';
+import parseMonth from './parseMonth';
 
 const handlers: Alexa.Handlers<any> = {
   LaunchRequest() {
@@ -18,6 +19,20 @@ const handlers: Alexa.Handlers<any> = {
     } catch (e) {
       this.response.speak('スケジュールの取得に失敗しました');
       console.error(`Failed to fetch schedules: ${e.message}`);
+    }
+    this.emit(':responseReady');
+  },
+  async GetBirthdays() {
+    const slots = this.event.request.intent.slots;
+    const time = parseMonth(slots.Date.value);
+    try {
+      const birthdays = await fetchBirthdays(time);
+      const script = formatBirthdays(birthdays, time);
+      this.response.speak(script);
+      console.info(script);
+    } catch (e) {
+      this.response.speak('誕生日の取得に失敗しました');
+      console.error(`Failed to fetch birthdays: ${e.message}`);
     }
     this.emit(':responseReady');
   },
