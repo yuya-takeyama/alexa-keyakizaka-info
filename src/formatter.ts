@@ -49,6 +49,9 @@ export const formatBirthdays = (
       return prev + `${birthday.name}、\n`;
     }
   }, '');
-  return `${formatBirthdayParameter(time)}が誕生日のメンバーは${birthdays.length}人です。\n` +
-    script;
+  return (
+    `${formatBirthdayParameter(time)}が誕生日のメンバーは${
+      birthdays.length
+    }人です。\n` + script
+  );
 };
